@@ -2,10 +2,13 @@
 
 >>> add_integer(1, 2)
 3
+
 >>> add_integer(100, -2)
 98
+
 >>> add_integer(2)
 100
+
 >>> add_integer(100.3, -2)
 98
 
@@ -16,3 +19,15 @@ TypeError: b must be an integer
 >>> add_integer(None)
 Traceback (most recent call last):
 TypeError: a must be an integer
+
+>>> add_integer(float('inf'), 1)
+Traceback (most recent call last):
+ValueError: a must be a finite number
+
+>>> add_integer(float('nan'), 2)
+Traceback (most recent call last):
+ValueError: a must be a finite number
+
+>>> add_integer(1, float('-inf'))
+Traceback (most recent call last):
+ValueError: b must be a finite number
