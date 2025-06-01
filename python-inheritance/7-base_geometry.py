@@ -13,12 +13,12 @@ class BaseGeometry:
         """Validate a parameter as an integer.
 
         Args:
-            name (str): name of the value.
-            value (int): value to validate.
+            name (str): The name of the parameter.
+            value (int): The parameter to validate.
 
         Raises:
-            TypeError: if value is not an integer.
-            ValueError: if value is <= 0.
+            TypeError: If value is not an integer.
+            ValueError: If value is <= 0.
         """
         if type(value) is not int:
             raise TypeError(f"{name} must be an integer")
