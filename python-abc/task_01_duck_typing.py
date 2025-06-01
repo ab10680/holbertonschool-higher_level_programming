@@ -23,7 +23,7 @@ class Circle(Shape):
     """Circle shape class."""
 
     def __init__(self, radius):
-        self.__radius = radius  # private attribute
+        self.__radius = radius
 
     def area(self):
         return math.pi * (self.__radius ** 2)
@@ -36,8 +36,8 @@ class Rectangle(Shape):
     """Rectangle shape class."""
 
     def __init__(self, width, height):
-        self.__width = width  # private attribute
-        self.__height = height  # private attribute
+        self.__width = width
+        self.__height = height
 
     def area(self):
         return self.__width * self.__height
@@ -51,3 +51,10 @@ def shape_info(shape):
     print(f"Area: {shape.area()}")
     print(f"Perimeter: {shape.perimeter()}")
 
+
+# Only for testing that Shape is abstract
+if __name__ == "__main__":
+    try:
+        shape = Shape()
+    except TypeError as e:
+        print("[{}] {}".format(e.__class__.__name__, e))
