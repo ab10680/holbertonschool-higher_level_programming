@@ -23,11 +23,12 @@ class Student:
         ):
             return {
                 attr: getattr(self, attr)
-                for attr in attrs if hasattr(self, attr)
+                for attr in attrs
+                if hasattr(self, attr)
             }
         return self.__dict__
 
     def reload_from_json(self, json):
-        """Replaces all attributes of the Student instance using the json dict."""
+        """Replaces all attributes of the Student using the json dict."""
         for key in json:
             setattr(self, key, json[key])
