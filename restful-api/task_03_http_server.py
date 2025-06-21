@@ -4,6 +4,7 @@ import http.server
 import socketserver
 import json
 
+
 PORT = 8000
 
 class MyHandler(http.server.BaseHTTPRequestHandler):
@@ -32,7 +33,7 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
             response_data = {
                 "status": "OK"
             }
-            self.wfile.write(json.dumps(response_data).encode('utf-8'))
+            self.wfile.write(json.dumps(response_data).encode("utf-8"))
 
         else:
             self.send_response(404)
@@ -41,7 +42,7 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
             response_data = {
                 "error": "Endpoint not found"
             }
-            self.wfile.write(json.dumps(response_data).encode('utf-8'))
+            self.wfile.write(json.dumps(response_data).encode("utf-8"))
 
 Handler = MyHandler
 
