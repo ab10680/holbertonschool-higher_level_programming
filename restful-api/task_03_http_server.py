@@ -2,7 +2,6 @@
 """Python web server"""
 import http.server
 import socketserver
-import json
 
 PORT = 8000
 
@@ -19,12 +18,9 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
 
         elif self.path == "/data":
             self._set_headers()
-            response_data = {
-                "name": "John",
-                "age": 30,
-                "city": "New York"
-            }
-            self.wfile.write(json.dumps(response_data).encode('utf-8'))
+            self.wfile.write(
+                b'{"name":"John","age":30,"city":"New York"}'
+            )
 
         elif self.path == "/status":
             self._set_headers()
@@ -33,6 +29,7 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
         else:
             self._set_headers(404)
             self.wfile.write(b'{"error":"Endpoint not found"}')
+
 
 Handler = MyHandler
 
