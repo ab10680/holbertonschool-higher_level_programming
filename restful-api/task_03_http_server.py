@@ -25,12 +25,13 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
 
         elif self.path == "/status":
             self._set_headers()
-            self.wfile.write(json.dumps({"status": "OK"}).encode("utf-8"))
+            response = {"status": "OK"}
+            self.wfile.write(json.dumps(response).encode("utf-8"))
 
         else:
             self._set_headers(404)
-            self.wfile.write(json.dumps({"error": "Endpoint not found"}).encode("utf-8"))
-
+            error = {"error": "Endpoint not found"}
+            self.wfile.write(json.dumps(error).encode("utf-8"))
 
 Handler = MyHandler
 
