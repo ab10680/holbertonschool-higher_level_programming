@@ -3,7 +3,7 @@
 Simple HTTP server with three endpoints:
 - /       : returns a plain text message
 - /data   : returns JSON data
-- /status : returns status JSON
+- /status : returns JSON status
 - others  : returns 404 JSON error
 """
 
@@ -29,20 +29,18 @@ class SimpleAPIHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
             self.end_headers()
-            status = {"status": "OK"}
-            self.wfile.write(json.dumps(status).encode("utf-8"))
+            self.wfile.write(json.dumps({"status": "OK"}).encode("utf-8"))
 
         else:
             self.send_response(404)
             self.send_header("Content-Type", "application/json")
             self.end_headers()
-            error = {"error": "Endpoint not found"}
-            self.wfile.write(json.dumps(error).encode("utf-8"))
+            self.wfile.write(json.dumps({"error": "Not found"}).encode("utf-8"))
 
 def run(server_class=HTTPServer, handler_class=SimpleAPIHandler, port=8000):
     server_address = ("", port)
     httpd = server_class(server_address, handler_class)
-    print(f"Starting HTTP server on port {port}")
+    print(f"Server running at http://localhost:{port}/")
     httpd.serve_forever()
 
 if __name__ == "__main__":
