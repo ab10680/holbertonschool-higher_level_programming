@@ -29,15 +29,15 @@ class SimpleAPIHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
             self.end_headers()
-	    status = {"status": "OK"}
-	    self.wfile.write((json.dumps(status) + "\n").encode("utf-8"))
+            status = {"status": "OK"}
+            self.wfile.write((json.dumps(status) + "\n").encode("utf-8"))
 
         else:
             self.send_response(404)
             self.send_header("Content-Type", "application/json")
             self.end_headers()
-	    error = {"error": "Not found"}
-	    self.wfile.write((json.dumps(error) + "\n").encode("utf-8"))
+            error = {"error": "Not found"}
+            self.wfile.write((json.dumps(error) + "\n").encode("utf-8"))
 
 
 def run(server_class=HTTPServer, handler_class=SimpleAPIHandler, port=8000):
