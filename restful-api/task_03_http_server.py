@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
 Simple HTTP server with three endpoints:
-- /       : returns plain text
+- /       : returns a plain text message
 - /data   : returns JSON data
 - /status : returns JSON status
 - others  : returns 404 JSON error
@@ -16,7 +16,7 @@ class SimpleAPIHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-Type", "text/plain")
             self.end_headers()
-            self.wfile.write(b"Welcome to the API")
+            self.wfile.write(b"Hello, Holberton!\n")
 
         elif self.path == "/data":
             self.send_response(200)
@@ -29,13 +29,15 @@ class SimpleAPIHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
             self.end_headers()
-            self.wfile.write(json.dumps({"status": "OK"}).encode("utf-8"))
+            status = {"status": "OK"}
+            self.wfile.write(json.dumps(status).encode("utf-8"))
 
         else:
             self.send_response(404)
             self.send_header("Content-Type", "application/json")
             self.end_headers()
-            self.wfile.write(json.dumps({"error": "Not found"}).encode("utf-8"))
+            error = {"error": "Not found"}
+            self.wfile.write(json.dumps(error).encode("utf-8"))
 
 def run(server_class=HTTPServer, handler_class=SimpleAPIHandler, port=8000):
     server_address = ("", port)

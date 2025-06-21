@@ -10,7 +10,7 @@ def test_root():
     response = urllib.request.urlopen("http://localhost:8000/")
     assert response.status == 200
     content = response.read().decode("utf-8").strip()
-    assert content == "Hello, this is a simple API!"
+    assert content == "Hello, Holberton!"
     print("Test if root endpoint returns correct content.: OK")
 
 
