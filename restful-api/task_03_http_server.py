@@ -1,4 +1,12 @@
 #!/usr/bin/python3
+"""
+Simple HTTP server with three endpoints:
+- /       : returns a plain text message
+- /data   : returns JSON data
+- /status : returns status JSON
+- others  : returns 404 JSON error
+"""
+
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 
