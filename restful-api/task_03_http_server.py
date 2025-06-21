@@ -29,16 +29,19 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-type", "application/json")
             self.end_headers()
-            response_data = {"status": "OK"}
+            response_data = {
+                "status": "OK"
+            }
             self.wfile.write(json.dumps(response_data).encode('utf-8'))
 
         else:
             self.send_response(404)
             self.send_header("Content-type", "application/json")
             self.end_headers()
-            response_data = {"error": "Endpoint not found"}
+            response_data = {
+                "error": "Endpoint not found"
+            }
             self.wfile.write(json.dumps(response_data).encode('utf-8'))
-
 
 Handler = MyHandler
 
