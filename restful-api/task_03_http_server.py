@@ -1,7 +1,9 @@
 #!/usr/bin/python3
-"""Python web server"""
+"""Python web server for Holberton RESTful API task 3"""
+
 import http.server
 import socketserver
+import json
 
 PORT = 8000
 
@@ -18,17 +20,16 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
 
         elif self.path == "/data":
             self._set_headers()
-            self.wfile.write(
-                b'{"name":"John","age":30,"city":"New York"}'
-            )
+            data = {"name": "John", "age": 30, "city": "New York"}
+            self.wfile.write(json.dumps(data).encode("utf-8"))
 
         elif self.path == "/status":
             self._set_headers()
-            self.wfile.write(b'{"status":"OK"}')
+            self.wfile.write(json.dumps({"status": "OK"}).encode("utf-8"))
 
         else:
             self._set_headers(404)
-            self.wfile.write(b'{"error":"Endpoint not found"}')
+            self.wfile.write(json.dumps({"error": "Endpoint not found"}).encode("utf-8"))
 
 
 Handler = MyHandler
