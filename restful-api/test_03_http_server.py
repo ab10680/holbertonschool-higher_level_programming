@@ -1,36 +1,45 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
+"""Tests for simple HTTP server"""
 import urllib.request
+import urllib.error
 import json
 
 
 def test_root():
-    with urllib.request.urlopen("http://localhost:8000/") as response:
-        body = response.read().decode("utf-8")
-        assert body.strip() == "Hello, this is a simple API!"
-        print("Test if root endpoint returns correct content.: OK")
+    """Test if root endpoint returns correct content"""
+    response = urllib.request.urlopen("http://localhost:8000/")
+    assert response.status == 200
+    content = response.read().decode("utf-8").strip()
+    assert content == "Hello, this is a simple API!"
+    print("Test if root endpoint returns correct content.: OK")
 
 
 def test_data():
-    with urllib.request.urlopen("http://localhost:8000/data") as response:
-        data = json.loads(response.read().decode("utf-8"))
-        assert data == {"name": "John", "age": 30, "city": "New York"}
-        print("Test if data endpoint returns correct data.: OK")
+    """Test if data endpoint returns correct JSON"""
+    response = urllib.request.urlopen("http://localhost:8000/data")
+    assert response.status == 200
+    data = json.loads(response.read().decode("utf-8"))
+    assert data == {"name": "John", "age": 30, "city": "New York"}
+    print("Test if data endpoint returns correct data.: OK")
 
 
 def test_status():
-    with urllib.request.urlopen("http://localhost:8000/status") as response:
-        data = json.loads(response.read().decode("utf-8"))
-        assert data == {"status": "OK"}
-        print("Test if status endpoint returns correct status.: OK")
+    """Test if status endpoint returns correct JSON"""
+    response = urllib.request.urlopen("http://localhost:8000/status")
+    assert response.status == 200
+    data = json.loads(response.read().decode("utf-8"))
+    assert data == {"status": "OK"}
+    print("Test if status endpoint returns correct status.: OK")
 
 
 def test_undefined():
+    """Test if undefined endpoint returns correct 404 JSON error"""
     try:
-        urllib.request.urlopen("http://localhost:8000/doesnotexist")
+        urllib.request.urlopen("http://localhost:8000/invalid")
     except urllib.error.HTTPError as e:
         assert e.code == 404
         error = json.loads(e.read().decode("utf-8"))
-        assert error == {"error": "Endpoint not found"}
+        assert error == {"error": "Not found"}
         print("Test if undefined endpoint returns correct status.: OK")
 
 

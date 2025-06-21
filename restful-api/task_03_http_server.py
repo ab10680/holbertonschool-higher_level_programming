@@ -16,31 +16,33 @@ class SimpleAPIHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-Type", "text/plain")
             self.end_headers()
-            self.wfile.write(b"Hello, this is a simple API!")
+            self.wfile.write(b"Hello, this is a simple API!\n")
 
         elif self.path == "/data":
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
             self.end_headers()
             data = {"name": "John", "age": 30, "city": "New York"}
-            self.wfile.write(json.dumps(data).encode("utf-8"))
+            self.wfile.write((json.dumps(data) + "\n").encode("utf-8"))
 
         elif self.path == "/status":
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
             self.end_headers()
             self.wfile.write(json.dumps({"status": "OK"}).encode("utf-8"))
+            self.wfile.write(b"\n")
 
         else:
             self.send_response(404)
             self.send_header("Content-Type", "application/json")
             self.end_headers()
             self.wfile.write(json.dumps({"error": "Not found"}).encode("utf-8"))
+            self.wfile.write(b"\n")
 
 def run(server_class=HTTPServer, handler_class=SimpleAPIHandler, port=8000):
     server_address = ("", port)
     httpd = server_class(server_address, handler_class)
-    print(f"Server running at http://localhost:{port}/")
+    print(f"Server running at http://localhost:{port}/\n")
     httpd.serve_forever()
 
 if __name__ == "__main__":
